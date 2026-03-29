@@ -1,0 +1,28 @@
+{ config, pkgs, ... }:
+
+{
+  programs.firefox = {
+    enable = true;
+    profiles = {
+      default = {
+        containersForce = true;
+        search.force = true;
+        settings = {
+          "browser.newtabpage.activity-stream.feeds.topsites" = false;
+          "browser.newtabpage.activity-stream.section.topstories.guide" = false;
+          "browser.ai.control.default" = "blocked";
+        };
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          darkreader # Inverts bright colors.
+          ublock-origin # Blocks malware sites, ads, trackers, etc.
+        ];
+      };
+    };
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+    };
+  };
+
+  home.file.".mozilla/firefox/profiles.ini".force = true; # Override existing file.
+}
