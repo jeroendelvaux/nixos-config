@@ -4,11 +4,9 @@
   options.ghidra.enable = lib.mkEnableOption "Enable ghidra";
 
   config = lib.mkIf config.ghidra.enable (lib.mkMerge [{
+    java.enable = true;
     home = {
       packages = with pkgs; [ ghidra ];
-      sessionVariables = {
-        _JAVA_AWT_WM_NONREPARENTING = 1; # Compatibility with window managers.
-      };
     };
     xdg = {
       enable = true;

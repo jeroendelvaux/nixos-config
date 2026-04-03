@@ -75,6 +75,7 @@
   android-tools.enable = true;
   ascii.enable = true;
   binwalk.enable = true;
+  burpsuite.enable = true;
   checksec.enable = true;
   file.enable = true;
   gdb.enable = true;

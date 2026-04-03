@@ -4,6 +4,7 @@
   options.jadx.enable = lib.mkEnableOption "Enable JADX";
 
   config = lib.mkIf config.jadx.enable {
+    java.enable = true;
     home.packages = with pkgs; [
       jadx
     ];
