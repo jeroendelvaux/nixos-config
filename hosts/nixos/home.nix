@@ -50,6 +50,9 @@
   # Archives:
   "7zip".enable = true;
 
+  # Office:
+  libreoffice.enable = true;
+
   # PDFs:
   okular.enable = true;
   latex.enable = true;
