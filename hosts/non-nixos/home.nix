@@ -19,7 +19,7 @@
   starship.enable = true;
 
   # Fonts:
-  nerdfonts.enable = true;
+  fonts.enable = true;
 
   # Code editor:
   nvim.enable = true;
@@ -48,6 +48,7 @@
   # android-tools.enable = true;
   ascii.enable = true;
   binwalk.enable = true;
+  burpsuite.enable = true;
   checksec.enable = true;
   file.enable = true;
   gdb.enable = true;

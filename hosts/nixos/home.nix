@@ -20,7 +20,7 @@
   starship.enable = true;
 
   # Fonts:
-  nerdfonts.enable = true;
+  fonts.enable = true;
 
   # Code editor:
   nvim.enable = true;

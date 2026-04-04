@@ -15,9 +15,7 @@
         confirm_os_window_close = 0;
       };
       font = {
-        name = lib.optionalString (
-          config.nerdfonts.enable or false
-        ) "JetBrainsMono Nerd Font";
+        name = "JetBrainsMono Nerd Font";
         size = 14;
       };
       keybindings = {
