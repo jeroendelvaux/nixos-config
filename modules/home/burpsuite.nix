@@ -6,7 +6,15 @@
   config = lib.mkIf config.burpsuite.enable {
     java.enable = true;
     home.packages = [
-      pkgs.burpsuite
+      (pkgs.symlinkJoin {
+        name = "burpsuite-wrapped";
+        paths = [ pkgs.burpsuite ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+        wrapProgram $out/bin/burpsuite --add-flags \
+          "--user-config-file=${config.xdg.configHome}/burp/user-config.json"
+        '';
+      })
     ];
     xdg = {
       configFile."burp/user-config.json".text = builtins.toJSON {
@@ -19,18 +27,6 @@
           };
         };
       };
-      desktopEntries.burpsuite = let
-        burpExe = "${pkgs.burpsuite}/bin/burpsuite";
-        confPath = ".config/burp/user-config.json";
-      in {
-        name = "Burp Suite Community Edition";
-        exec = "${burpExe} --user-config-file=\"${confPath}\"";
-        icon = "burpsuite";
-        terminal = false;
-      };
-    };
-    programs.fish.shellAbbrs = lib.mkIf (config.fish.enable or false) {
-      "burpsuite" = "burpsuite --user-config-file=$HOME/.config/burp/user-config.json";
     };
     nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
       "burpsuite"
