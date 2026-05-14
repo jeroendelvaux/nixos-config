@@ -3,10 +3,17 @@
 {
   xdg.portal = {
     enable = true;
-    wlr.enable = true; # screenshots and screencasts
     extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gtk
     ];
-    config.common.default = "*";
+    config = {
+      common = {
+        default = [ "hyprland" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        "org.freedesktop.impl.portal.AppChooser" = [ "gtk" ];
+        "org.freedesktop.impl.portal.Print" = [ "gtk" ];
+      };
+    };
   };
 }
