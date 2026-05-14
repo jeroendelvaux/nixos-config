@@ -84,6 +84,7 @@
   jadx.enable = true;
   nmap.enable = true;
   rizin.enable = true;
+  semgrep.enable = true;
   tcpdump.enable = true;
   unblob.enable = true;
   wireshark.enable = true;
