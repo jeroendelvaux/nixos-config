@@ -4,7 +4,10 @@
   options.bitwarden.enable = lib.mkEnableOption "Enable bitwarden";
 
   config = lib.mkIf config.bitwarden.enable {
-    home.packages = with pkgs; [
+     nixpkgs.config.permittedInsecurePackages = [
+       "electron-39.8.10"
+     ];
+     home.packages = with pkgs; [
       bitwarden-desktop
     ];
   };

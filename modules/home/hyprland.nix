@@ -7,6 +7,7 @@
 
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang"; # TODO: migrate to lua
       settings = {
         "$mod" = "SUPER";
         exec-once = [

@@ -22,7 +22,6 @@
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
     };
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
   };
-
-  home.file.".mozilla/firefox/profiles.ini".force = true; # Override existing file.
 }

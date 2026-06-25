@@ -13,8 +13,9 @@ in
       enable = true;
       settings = {
         preload = [ "${wallpaper}" ];
-        # apply to all monitors (no argument before the comma):
-        wallpaper = [ ",${wallpaper}" ];
+        wallpaper = [
+          { monitor = ""; path = "${wallpaper}"; }
+        ];
       };
     };
   };

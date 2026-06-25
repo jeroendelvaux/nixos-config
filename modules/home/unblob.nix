@@ -4,8 +4,11 @@
   options.unblob.enable = lib.mkEnableOption "Enable unblob";
 
   config = lib.mkIf config.unblob.enable {
-    home.packages = with pkgs; [
-      unblob
+    home.packages = [
+      (pkgs.unblob.overridePythonAttrs (old: {
+        doCheck = false;
+        doInstallCheck = false;
+      }))
     ];
   };
 }
