@@ -143,6 +143,10 @@
         publicKey = secrets.hosts.tiger.wireguardPublicKey;
         allowedIPs = [ "10.100.0.2/32" ];
       }
+      {
+        publicKey = secrets.hosts.lynx.wireguardPublicKey;
+        allowedIPs = [ "10.100.0.3/32" ];
+      }
     ];
   };
 
