@@ -18,7 +18,7 @@
           TIP_INDEX=0
           G_FILE_CHOOSER.ShowDotFiles=true
           USER_AGREEMENT=ACCEPT
-          Theme=File\:/home/${secrets.user.name}/.config/ghidra/${pkgs.ghidra.distroPrefix}/themes/Catppuccin_Mocha.theme
+          Theme=File\:${config.home.homeDirectory}/.config/ghidra/${pkgs.ghidra.distroPrefix}/themes/Catppuccin_Mocha.theme
         '';
       };
       configFile."./ghidra/${pkgs.ghidra.distroPrefix}/themes/Catppuccin_Mocha.theme" = {

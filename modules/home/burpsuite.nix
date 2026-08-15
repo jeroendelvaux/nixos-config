@@ -28,8 +28,8 @@
         };
       };
     };
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "burpsuite"
-    ];
+    #nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    #  "burpsuite"
+    #];
   };
 }

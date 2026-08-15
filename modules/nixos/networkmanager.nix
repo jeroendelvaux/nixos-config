@@ -2,7 +2,7 @@
 
 {
   networking = {
-    hostName = secrets.networking.hostName;
+    hostName = secrets.hosts.tiger.hostName;
     networkmanager = {
       enable = true;
       settings.connectivity = {
@@ -12,5 +12,5 @@
       };
     };
   };
-  users.users.${secrets.user.name}.extraGroups = [ "networkmanager" ];
+  users.users.${secrets.hosts.tiger.owner.username}.extraGroups = [ "networkmanager" ];
 }

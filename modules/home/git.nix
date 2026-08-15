@@ -9,8 +9,8 @@
       enable = true;
       settings = {
         user = {
-          name = secrets.git.userName;
-          email = secrets.git.userEmail;
+          name = secrets.users.owner.git.name;
+          email = secrets.users.owner.git.email;
         };
         init.defaultBranch = "main";
       };

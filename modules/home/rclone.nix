@@ -10,8 +10,8 @@
       remotes = {
         remote = {
           config = {
-            type = secrets.rclone.type;
-            hostname = secrets.rclone.hostname;
+            type = secrets.users.owner.rclone.type;
+            hostname = secrets.users.owner.rclone.hostname;
           };
           secrets = {
             token = config.sops.secrets.rclone.path;
@@ -19,7 +19,7 @@
           mounts = {
             "/" = {
               enable = true;
-              mountPoint = "/home/${secrets.user.name}/${secrets.rclone.type}";
+              mountPoint = "${config.home.homeDirectory}/${secrets.users.owner.rclone.type}";
             };
           };
         };

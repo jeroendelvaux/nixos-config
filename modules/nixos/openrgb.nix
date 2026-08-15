@@ -4,7 +4,7 @@
   services.hardware.openrgb.enable = true;
 
   # To avoid build error:
-  nixpkgs.config.permittedInsecurePackages = [
-    "mbedtls-2.28.10"
-  ];
+  #nixpkgs.config.permittedInsecurePackages = [
+  #  "mbedtls-2.28.10"
+  #];
 }

@@ -9,7 +9,7 @@
          secrets-path = builtins.toString secrets;
       in "${secrets-path}/secrets.yaml";
       age = {
-        keyFile = "/home/${secrets.user.name}/.config/age/keys.txt";
+        keyFile = "${config.home.homeDirectory}/.config/age/keys.txt";
       };
       secrets = {
         rclone = {};

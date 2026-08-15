@@ -36,5 +36,5 @@
     '')
   ];
 
-  nixpkgs.config.allowUnfree = true; # To avoid build error
+  #nixpkgs.config.allowUnfree = true; # To avoid build error
 }

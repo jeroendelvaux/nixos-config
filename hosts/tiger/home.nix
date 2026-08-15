@@ -3,8 +3,8 @@
 {
   programs.home-manager.enable = true;
 
-  home.username = secrets.user.name;
-  home.homeDirectory = "/home/${secrets.user.name}";
+  home.username = secrets.hosts.tiger.owner.username;
+  home.homeDirectory = "/home/${secrets.hosts.tiger.owner.username}";
 
   imports = lib.filesystem.listFilesRecursive ../../modules/home;
 
@@ -107,6 +107,19 @@
     parted # formatting and partitioning
     bashmount # menu-driven mounting; wrapper of udisks2
   ];
+
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    settings = {
+      "*" = {};
+      "puma" = {
+        hostname = secrets.hosts.puma.ip;
+        user = secrets.hosts.puma.owner.username;
+        forwardAgent = true;
+      };
+    };
+  };
 
   home.stateVersion = "25.05"; # Do not change, even if the version in flake.nix is updated.
 }
