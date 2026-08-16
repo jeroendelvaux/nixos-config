@@ -32,7 +32,7 @@ f_puma() {
 }
 
 f_leopard() {
-  :
+  home-manager switch --flake .#leopard
 }
 
 while :; do

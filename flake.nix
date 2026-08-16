@@ -65,7 +65,18 @@
         # ----------------------------------------------------------------------
         # Host 3: leopard
         # ----------------------------------------------------------------------
-        # TODO
+        leopard = inputs.home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ 
+            ./hosts/leopard/home.nix
+            inputs.nixvim.homeModules.nixvim
+            inputs.nur.modules.homeManager.default
+            inputs.sops-nix.homeManagerModules.sops
+          ];
+          extraSpecialArgs = {
+            inherit secrets;
+          };
+        };
       };
     };
 }

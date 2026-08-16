@@ -22,6 +22,9 @@
   # Fonts:
   fonts.enable = true;
 
+  # Browser:
+  firefox.enable = true;
+
   # Code editor:
   nvim.enable = true;
 
