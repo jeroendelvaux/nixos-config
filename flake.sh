@@ -20,7 +20,8 @@ echo "2) puma"
 echo "3) leopard"
 
 f_tiger() {
-  sudo nixos-rebuild switch --flake .#tiger
+  #sudo nixos-rebuild switch --flake .#tiger
+  nixos-rebuild switch --flake .#tiger --sudo
 }
 
 f_puma() {
