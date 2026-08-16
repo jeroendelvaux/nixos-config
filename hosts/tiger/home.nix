@@ -15,7 +15,7 @@
   waybar.enable = true;
 
   # Terminal:
-  kitty.enable = true;
+  foot.enable = true;
   fish.enable = true;
   starship.enable = true;
 

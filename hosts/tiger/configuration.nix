@@ -31,9 +31,6 @@
   gc.enable = true;
 
   programs.hyprland.enable = true;
-  environment.systemPackages = [
-    pkgs.kitty # required for the default Hyprland config
-  ];
 
   services.gnome.gnome-keyring.enable = true;
   programs.dconf.enable = true; 

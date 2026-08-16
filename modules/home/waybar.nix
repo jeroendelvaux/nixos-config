@@ -33,7 +33,7 @@
               <b>{essid}</b>
               IP: {ipaddr}
             '';
-            on-click = "kitty nmtui";
+            on-click = "foot nmtui";
           };
           wireplumber = {
             format = "{icon} {volume}%";
