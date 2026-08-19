@@ -11,6 +11,7 @@
           term = "foot";
           shell = lib.mkIf (config.fish.enable or false) "${pkgs.fish}/bin/fish";
           font = "JetBrainsMono Nerd Font:size=14";
+          selection-target = "clipboard";
           include = let
             themeRepo = pkgs.fetchFromGitHub {
               owner = "catppuccin";
@@ -21,8 +22,8 @@
           in "${themeRepo}/themes/catppuccin-mocha.ini";
         };
         key-bindings = {
-          clipboard-copy = "Control+c";
-          clipboard-paste = "Control+v";
+          clipboard-copy = "Control+Shift+c"; # Control+c for SIGINT
+          clipboard-paste = "Control+v Control+Shift+v";
           font-increase = "Control+KP_Add";
           font-decrease = "Control+KP_Subtract";
         };
