@@ -13,6 +13,7 @@
   hypridle.enable = true;
   hyprpaper.enable = true;
   waybar.enable = true;
+  wofi.enable = true;
 
   # Terminal:
   foot.enable = true;
@@ -51,7 +52,9 @@
   bitwarden.enable = true;
 
   # Archives:
-  "7zip".enable = true;
+  "7zip" = {
+    enable = true;
+  };
 
   # Office:
   libreoffice.enable = true;
@@ -97,18 +100,14 @@
   # Programming:
   python.enable = true;
 
-  /*services.gnome-keyring = {
-    enable = true;
-    components = [ "pkcs11" "secrets" "ssh" ];
-  };*/
-  # enables SSH agent, allowing for password-less logins
-
   # Utilities:
+  ventoy.enable = true;
+
   home.packages = with pkgs; [
     wl-clipboard
-    usbutils # lsusb, ...
-    parted # formatting and partitioning
-    bashmount # menu-driven mounting; wrapper of udisks2
+    usbutils
+    parted
+    bashmount
   ];
 
   programs.ssh = {
@@ -124,5 +123,5 @@
     };
   };
 
-  home.stateVersion = "25.05"; # Do not change, even if the version in flake.nix is updated.
+  home.stateVersion = "25.05";
 }

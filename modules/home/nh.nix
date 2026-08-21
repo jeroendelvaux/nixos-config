@@ -1,7 +1,12 @@
-{ config, pkgs, secrets, ... }:
+{ config, lib, pkgs, secrets, ... }:
 
+let
+  cfg = config.nh;
+in
 {
-  programs.nh = {
+  options.nh.enable = lib.mkEnableOption "Enable nh";
+
+  config.programs.nh = lib.mkIf cfg.enable {
     enable = true;
     # Automatic garbage collection policy:
     # - Keep all generations from the past week.

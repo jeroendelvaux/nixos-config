@@ -1,14 +1,16 @@
 { config, lib, pkgs, secrets, ... }:
 
+let
+  cfg = config.libreoffice;
+in
 {
   options.libreoffice.enable = lib.mkEnableOption "Enable LibreOffice";
 
-  config = lib.mkIf config.libreoffice.enable {
-    home.packages = with pkgs; [
-      libreoffice-still
-    ];
-    home.sessionVariables = {
-      SAL_USE_VCLPLUGIN = "gtk3";
-    };
+  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
+    libreoffice-still
+  ]);
+
+  config.home.sessionVariables = lib.mkIf cfg.enable {
+    SAL_USE_VCLPLUGIN = "gtk3";
   };
 }

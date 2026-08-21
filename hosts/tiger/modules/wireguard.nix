@@ -1,9 +1,12 @@
 { config, lib, pkgs, secrets, ... }:
 
+let
+  cfg = config.wireguard;
+in
 {
   options.wireguard.enable = lib.mkEnableOption "Enable wireguard";
 
-  config = lib.mkIf config.wireguard.enable {
+  config = lib.mkIf cfg.enable {
     sops = {
       defaultSopsFile = "${secrets}/keys/tiger/secrets.yaml";
       defaultSopsFormat = "yaml";
@@ -43,7 +46,18 @@
         name = "wg-disconnect";
         runtimeInputs = [ pkgs.systemd ];
         text = ''
-          exec sudo systemctl stop wg-quick-wg0.service
+          exec sudo systemctl stop wg-quick-wg0.service --no-block
+        '';
+      })
+      (pkgs.writeShellApplication {
+        name = "wg-status";
+        runtimeInputs = [ pkgs.systemd ];
+        text = ''
+          if systemctl is-active --quiet wg-quick-wg0.service; then
+            echo "connected"
+          else
+            echo "disconnected"
+          fi
         '';
       })
       (pkgs.writeShellApplication {

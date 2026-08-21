@@ -1,7 +1,12 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, secrets, ... }:
 
+let
+  cfg = config.wofi;
+in
 {
-  programs.wofi = {
+  options.wofi.enable = lib.mkEnableOption "Enable wofi";
+
+  config.programs.wofi = lib.mkIf cfg.enable {
     enable = true;
     settings = {
       location = "middle";

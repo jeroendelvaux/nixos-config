@@ -1,31 +1,32 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, secrets, ... }:
 
+let
+  cfg = config.firefox;
+in
 {
   options.firefox.enable = lib.mkEnableOption "Enable firefox";
 
-  config = lib.mkIf config.firefox.enable {
-    programs.firefox = {
-      enable = true;
-      profiles = {
-        default = {
-          containersForce = true;
-          search.force = true;
-          settings = {
-            "browser.newtabpage.activity-stream.feeds.topsites" = false;
-            "browser.newtabpage.activity-stream.section.topstories.guide" = false;
-            "browser.ai.control.default" = "blocked";
-          };
-          extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-            darkreader # Inverts bright colors.
-            ublock-origin # Blocks malware sites, ads, trackers, etc.
-          ];
+  config.programs.firefox = lib.mkIf cfg.enable {
+    enable = true;
+    profiles = {
+      default = {
+        containersForce = true;
+        search.force = true;
+        settings = {
+          "browser.newtabpage.activity-stream.feeds.topsites" = false;
+          "browser.newtabpage.activity-stream.section.topstories.guide" = false;
+          "browser.ai.control.default" = "blocked";
         };
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          darkreader # Inverts bright colors.
+          ublock-origin # Blocks malware sites, ads, trackers, etc.
+        ];
       };
-      policies = {
-        DisableTelemetry = true;
-        DisableFirefoxStudies = true;
-      };
-      configPath = "${config.xdg.configHome}/mozilla/firefox";
     };
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+    };
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
   };
 }

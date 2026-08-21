@@ -1,23 +1,6 @@
 { config, lib, pkgs, pkgs-unstable, secrets, inputs, ... }:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    permitInsecurePredicate = _: true;
-    permittedInsecurePackages = [
-      "electron-39.8.10"
-      "ventoy-gtk3-1.1.05"
-      "mbedtls-2.28.10"
-    ];
-  };
-  # TODO: redesign structure for insecure packages
-
-  nixpkgs.overlays = [
-    inputs.nur.overlays.default
-  ];
-
   imports = 
     (lib.filesystem.listFilesRecursive ./modules)
     ++ (lib.filesystem.listFilesRecursive ../../modules/nixos)
@@ -26,40 +9,42 @@
       secrets.nixosModules.m50741583
     ];
 
-  wireguard.enable = true;
-  qemu.enable = true;
-  gc.enable = true;
+  config.nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  programs.hyprland.enable = true;
+  config.nixpkgs.config.allowUnfree = true;
+  config.nixpkgs.overlays = [ inputs.nur.overlays.default ];
 
-  services.gnome.gnome-keyring.enable = true;
-  programs.dconf.enable = true; 
-  security.polkit.enable = true;
+  config.wireguard.enable = true;
+  config.qemu.enable = true;
+  config.gc.enable = true;
 
-  security.pam.services = {
-    greetd.enableGnomeKeyring = true; # unlocks GNOME keyring on login
+  config.programs.hyprland.enable = true;
+
+  config.services.gnome.gnome-keyring.enable = true;
+  config.programs.dconf.enable = true; 
+  config.security.polkit.enable = true;
+
+  config.security.pam.services = {
+    greetd.enableGnomeKeyring = true;
   };
 
-  # Bootloader:
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  config.boot.loader.systemd-boot.enable = true;
+  config.boot.loader.efi.canTouchEfiVariables = true;
 
-  # Shells:
-  environment.shells = with pkgs; [ bash ];
-  users.defaultUserShell = pkgs.bash;
+  config.environment.shells = with pkgs; [ bash ];
+  config.users.defaultUserShell = pkgs.bash;
 
-  # USB:
-  services.gvfs.enable = true;
-  services.udisks2.enable = true; # udisksctl
+  config.services.gvfs.enable = true;
+  config.services.udisks2.enable = true;
 
-  services.automatic-timezoned.enable = true; # Update time zone based on current location
+  config.services.automatic-timezoned.enable = true;
 
-  users.users.${secrets.hosts.tiger.owner.username} = {
+  config.users.users.${secrets.hosts.tiger.owner.username} = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
   };
 
-  home-manager = {
+  config.home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = {
@@ -69,11 +54,10 @@
       imports = [
         ./home.nix
         inputs.nixvim.homeModules.nixvim
-        inputs.nur.modules.homeManager.default
         inputs.sops-nix.homeManagerModules.sops
       ];
     };
   };
 
-  system.stateVersion = "25.05"; # Do not change, even if the version in flake.nix is updated.
+  config.system.stateVersion = "25.05";
 }

@@ -35,6 +35,4 @@
       exec "$@"
     '')
   ];
-
-  #nixpkgs.config.allowUnfree = true; # To avoid build error
 }

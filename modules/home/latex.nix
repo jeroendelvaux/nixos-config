@@ -1,5 +1,7 @@
 { config, lib, pkgs, secrets, ... }:
+
 let
+  cfg = config.latex;
   mylatex = pkgs.texliveBasic.withPackages (ps: with ps; [
     algorithm2e
     amsmath
@@ -47,9 +49,7 @@ in
 {
   options.latex.enable = lib.mkEnableOption "Enable latex";
 
-  config = lib.mkIf config.latex.enable {
-    home.packages = with pkgs; [
-      mylatex
-    ];
-  };
+  config.home.packages = lib.mkIf cfg.enable [
+    mylatex
+  ];
 }
