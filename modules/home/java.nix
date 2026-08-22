@@ -15,7 +15,7 @@ in
         "-Dsun.java2d.uiScale=1.5"
       ];
     } 
-    // lib.optionalAttrs (config.hyprland.enable or false) {
+    // lib.optionalAttrs (config.modules.hyprland.enable or false) {
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
   };

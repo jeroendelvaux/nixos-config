@@ -27,7 +27,7 @@ in
         in "${repo}/themes/Catppuccin Mocha.tmTheme";
       };
     };
-    programs.fish.shellAbbrs = lib.mkIf (config.fish.enable or false) {
+    programs.fish.shellAbbrs = lib.mkIf (config.modules.fish.enable or false) {
       "cat" = "bat";
     };
   };

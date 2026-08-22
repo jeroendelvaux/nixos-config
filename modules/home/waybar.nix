@@ -14,21 +14,13 @@ in
           position = "top";
           modules-left = [ "hyprland/workspaces" ];
           modules-right = [
-            "bluetooth"
             "network"
+            "custom/vpn"
+            "bluetooth"
             "wireplumber"
             "battery"
             "clock"
           ];
-          bluetooth = {
-            format-disabled = "󰂲 off";
-            format-enabled = "󰂯 on";
-            format-connected = "󰂱";
-            tooltip-format = ''
-              Status: {status}
-            '';
-            on-click = "blueman-manager";
-          };
           network = {
             format-wifi = "{icon} {signalStrength}%";
             format-icons = [ "󰖩" ];
@@ -37,6 +29,28 @@ in
               IP: {ipaddr}
             '';
             on-click = "foot nmtui";
+          };
+          "custom/vpn" = {
+            exec = ''
+              status=$(wg-status 2>/dev/null)
+              if [ "$status" = "connected" ]; then
+                echo '{"text": "VPN: ON"}'
+              else
+                echo '{"text": "VPN: OFF"}'
+              fi
+            '';
+            return-type = "json";
+            interval = 5;
+            format = "{}";
+          };
+          bluetooth = {
+            format-disabled = "󰂲 off";
+            format-enabled = "󰂯 on";
+            format-connected = "󰂱";
+            tooltip-format = ''
+              Status: {status}
+            '';
+            on-click = "blueman-manager";
           };
           wireplumber = {
             format = "{icon} {volume}%";
@@ -80,7 +94,7 @@ in
         #workspaces button.active {
           color: #ee33ee;
         }
-        #bluetooth, #network, #wireplumber, #battery, #clock {
+        #network, #custom-vpn, #bluetooth, #wireplumber, #battery, #clock {
           background: #333333;
           padding: 0 10px;
           margin-right: 10px;

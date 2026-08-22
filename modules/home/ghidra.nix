@@ -36,7 +36,7 @@ in
       };
     };
   }
-  (lib.mkIf (config.hyprland.enable or false) {
+  (lib.mkIf (config.modules.hyprland.enable or false) {
    # deprecated
    # wayland.windowManager.hyprland.settings.windowrulev2 = [
    #   "tile, class:^ghidra-Ghidra$, title:^(Ghidra:|.*CodeBrowser).*$"

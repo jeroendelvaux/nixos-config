@@ -12,7 +12,7 @@ in
       settings = {
         main = {
           term = "foot";
-          shell = lib.mkIf (config.fish.enable or false) "${pkgs.fish}/bin/fish";
+          shell = lib.mkIf (config.modules.fish.enable or false) "${pkgs.fish}/bin/fish";
           font = "JetBrainsMono Nerd Font:size=14";
           selection-target = "clipboard";
           include = let
