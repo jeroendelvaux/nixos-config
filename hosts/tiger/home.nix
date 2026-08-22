@@ -8,100 +8,100 @@
 
   imports = lib.filesystem.listFilesRecursive ../../modules/home;
 
-  # Window manager:
-  hyprland.enable = true;
-  hypridle.enable = true;
-  hyprpaper.enable = true;
-  waybar.enable = true;
-  wofi.enable = true;
+  modules = {
+    # Window manager:
+    hyprland.enable = true;
+    hypridle.enable = true;
+    hyprpaper.enable = true;
+    waybar.enable = true;
+    wofi.enable = true;
 
-  # Terminal:
-  foot.enable = true;
-  fish.enable = true;
-  starship.enable = true;
+    # Terminal:
+    foot.enable = true;
+    fish.enable = true;
+    starship.enable = true;
 
-  # Fonts:
-  fonts.enable = true;
+    # Fonts:
+    fonts.enable = true;
 
-  # Browser:
-  firefox.enable = true;
+    # Browser:
+    firefox.enable = true;
 
-  # Code editor:
-  nvim.enable = true;
+    # Code editor:
+    nvim.enable = true;
 
-  # Version control:
-  git.enable = true;
+    # Version control:
+    git.enable = true;
 
-  # Cloud storage:
-  rclone.enable = true;
+    # Cloud storage:
+    rclone.enable = true;
 
-  sops.enable = true;
+    # Navigation:
+    bat.enable = true;
+    eza.enable = true;
 
-  # Navigation:
-  bat.enable = true;
-  eza.enable = true;
+    # Web utilities:
+    wget.enable = true;
+    traceroute.enable = true;
 
-  # Web utilities:
-  wget.enable = true;
-  traceroute.enable = true;
+    # Processes:
+    btop.enable = true;
 
-  # Processes:
-  btop.enable = true;
+    # Passwords:
+    bitwarden.enable = true;
 
-  # Passwords:
-  bitwarden.enable = true;
+    # Archives:
+    "7zip" = {
+      enable = true;
+    };
 
-  # Archives:
-  "7zip" = {
-    enable = true;
+    # Office:
+    libreoffice.enable = true;
+
+    # PDFs:
+    okular.enable = true;
+    latex.enable = true;
+
+    # Markdown files:
+    ghostwriter.enable = true;
+
+    # Images:
+    imv.enable = true;
+    imagemagick.enable = true;
+    gimp.enable = true;
+
+    # Media files:
+    mpv.enable = true;
+
+    # 3D Creation:
+    blender.enable = true;
+
+    # Penetration testing:
+    android-tools.enable = true;
+    ascii.enable = true;
+    binwalk.enable = true;
+    burpsuite.enable = true;
+    checksec.enable = true;
+    file.enable = true;
+    gdb.enable = true;
+    ghidra.enable = true;
+    hexedit.enable = true;
+    jadx.enable = true;
+    nmap.enable = true;
+    rizin.enable = true;
+    semgrep.enable = true;
+    tcpdump.enable = true;
+    unblob.enable = true;
+    wireshark.enable = true;
+
+    gtk3.enable = true;
+
+    # Programming:
+    python.enable = true;
+
+    # Utilities:
+    ventoy.enable = true;
   };
-
-  # Office:
-  libreoffice.enable = true;
-
-  # PDFs:
-  okular.enable = true;
-  latex.enable = true;
-
-  # Markdown files:
-  ghostwriter.enable = true;
-
-  # Images:
-  imv.enable = true;
-  imagemagick.enable = true;
-  gimp.enable = true;
-
-  # Media files:
-  mpv.enable = true;
-
-  # 3D Creation:
-  blender.enable = true;
-
-  # Penetration testing:
-  android-tools.enable = true;
-  ascii.enable = true;
-  binwalk.enable = true;
-  burpsuite.enable = true;
-  checksec.enable = true;
-  file.enable = true;
-  gdb.enable = true;
-  ghidra.enable = true;
-  hexedit.enable = true;
-  jadx.enable = true;
-  nmap.enable = true;
-  rizin.enable = true;
-  semgrep.enable = true;
-  tcpdump.enable = true;
-  unblob.enable = true;
-  wireshark.enable = true;
-
-  gtk3.enable = true;
-
-  # Programming:
-  python.enable = true;
-
-  # Utilities:
-  ventoy.enable = true;
 
   home.packages = with pkgs; [
     wl-clipboard

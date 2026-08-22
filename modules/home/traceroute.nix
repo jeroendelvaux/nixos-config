@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.traceroute;
+  cfg = config.modules.traceroute;
 in
 {
-  options.traceroute.enable = lib.mkEnableOption "Enable traceroute";
+  options.modules.traceroute.enable = lib.mkEnableOption "Enable traceroute";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    traceroute
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.traceroute
+    ];
+  };
 }

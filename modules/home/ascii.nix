@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.ascii;
+  cfg = config.modules.ascii;
 in
 {
-  options.ascii.enable = lib.mkEnableOption "Enable ascii";
+  options.modules.ascii.enable = lib.mkEnableOption "Enable ascii";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    ascii
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.ascii
+    ];
+  };
 }

@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.okular;
+  cfg = config.modules.okular;
 in
 {
-  options.okular.enable = lib.mkEnableOption "Enable okular";
+  options.modules.okular.enable = lib.mkEnableOption "Enable okular";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    kdePackages.okular 
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.kdePackages.okular
+    ];
+  };
 }

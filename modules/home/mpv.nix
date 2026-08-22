@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.mpv;
+  cfg = config.modules.mpv;
 in
 {
-  options.mpv.enable = lib.mkEnableOption "Enable mpv";
+  options.modules.mpv.enable = lib.mkEnableOption "Enable mpv";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    mpv
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.mpv
+    ];
+  };
 }

@@ -1,13 +1,15 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.android-tools;
+  cfg = config.modules.android-tools;
 in
 {
-  options.android-tools.enable = lib.mkEnableOption "Enable android-tools";
+  options.modules.android-tools.enable = lib.mkEnableOption "Enable android-tools";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    android-tools
-    apksigner
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.android-tools
+      pkgs.apksigner
+    ];
+  };
 }

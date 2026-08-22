@@ -1,25 +1,26 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.sops;
+  cfg = config.modules.sops;
 in
 {
-  options.sops.enable = lib.mkEnableOption "Enable sops";
+  options.modules.sops.enable = lib.mkEnableOption "Enable sops";
 
-  config.sops = lib.mkIf cfg.enable {
-    defaultSopsFile = let
-      secrets-path = builtins.toString secrets;
-    in "${secrets-path}/secrets.yaml";
-    age = {
-      keyFile = "${config.home.homeDirectory}/.config/age/keys.txt";
+  config = lib.mkIf cfg.enable {
+    sops = {
+      defaultSopsFile = let
+         secrets-path = builtins.toString secrets;
+      in "${secrets-path}/secrets.yaml";
+      age = {
+        keyFile = "${config.home.homeDirectory}/.config/age/keys.txt";
+      };
+      secrets = {
+        rclone = {};
+      };
     };
-    secrets = {
-      rclone = {};
-    };
+    home.packages = [
+      pkgs.age
+      pkgs.sops
+    ];
   };
-
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    age
-    sops
-  ]);
 }

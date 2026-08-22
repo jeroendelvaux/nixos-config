@@ -1,7 +1,7 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.ventoy;
+  cfg = config.modules.ventoy;
   ventoyPkgs = import pkgs.path {
     localSystem = pkgs.stdenv.hostPlatform;
     config = {
@@ -15,9 +15,11 @@ let
   };
 in
 {
-  options.ventoy.enable = lib.mkEnableOption "Enable ventoy";
+  options.modules.ventoy.enable = lib.mkEnableOption "Enable ventoy";
 
-  config.home.packages = lib.mkIf cfg.enable [
-    ventoyPkgs.ventoy-full-gtk
-  ];
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      ventoyPkgs.ventoy-full-gtk
+    ];
+  };
 }

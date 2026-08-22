@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.checksec;
+  cfg = config.modules.checksec;
 in
 {
-  options.checksec.enable = lib.mkEnableOption "Enable checksec";
+  options.modules.checksec.enable = lib.mkEnableOption "Enable checksec";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    checksec
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.checksec
+    ];
+  };
 }

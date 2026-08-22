@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.binwalk;
+  cfg = config.modules.binwalk;
 in
 {
-  options.binwalk.enable = lib.mkEnableOption "Enable binwalk";
+  options.modules.binwalk.enable = lib.mkEnableOption "Enable binwalk";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    binwalk
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.binwalk
+    ];
+  };
 }

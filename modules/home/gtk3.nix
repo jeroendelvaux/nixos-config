@@ -1,13 +1,15 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.gtk3;
+  cfg = config.modules.gtk3;
 in
 {
-  options.gtk3.enable = lib.mkEnableOption "Enable gtk3";
+  options.modules.gtk3.enable = lib.mkEnableOption "Enable gtk3";
 
-  config.gtk = lib.mkIf cfg.enable {
-    enable = true;
-    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+  config = lib.mkIf cfg.enable {
+    gtk = {
+      enable = true;
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    };
   };
 }

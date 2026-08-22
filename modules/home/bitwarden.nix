@@ -1,16 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.bitwarden;
+  cfg = config.modules.bitwarden;
 in
 {
-  options.bitwarden.enable = lib.mkEnableOption "Enable bitwarden";
+  options.modules.bitwarden.enable = lib.mkEnableOption "Enable bitwarden";
 
-  # nixpkgs.config.permittedInsecurePackages = [
-  #   "electron-39.8.10"
-  # ];
-
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    bitwarden-desktop
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.bitwarden-desktop
+    ];
+  };
 }

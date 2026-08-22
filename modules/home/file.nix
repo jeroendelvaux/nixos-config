@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.file;
+  cfg = config.modules.file;
 in
 {
-  options.file.enable = lib.mkEnableOption "Enable file";
+  options.modules.file.enable = lib.mkEnableOption "Enable file";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    file
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.file
+    ];
+  };
 }

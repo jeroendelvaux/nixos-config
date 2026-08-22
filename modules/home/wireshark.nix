@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.wireshark;
+  cfg = config.modules.wireshark;
 in
 {
-  options.wireshark.enable = lib.mkEnableOption "Enable wireshark";
+  options.modules.wireshark.enable = lib.mkEnableOption "Enable wireshark";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    wireshark
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.wireshark
+    ];
+  };
 }

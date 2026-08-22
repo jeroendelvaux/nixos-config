@@ -1,19 +1,17 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.jadx;
+  cfg = config.modules.jadx;
 in
 {
-  options.jadx.enable = lib.mkEnableOption "Enable JADX";
+  options.modules.jadx.enable = lib.mkEnableOption "Enable JADX";
 
-  config.java.enable = lib.mkIf cfg.enable true;
-
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    jadx
-  ]);
-
-  config.xdg.configFile."jadx/gui.json" = lib.mkIf cfg.enable {
-    text = builtins.toJSON {
+  config = lib.mkIf cfg.enable {
+    modules.java.enable = true;
+    home.packages = [
+      pkgs.jadx
+    ];
+    xdg.configFile."jadx/gui.json".text = builtins.toJSON {
       "editorThemePath" = "/org/fife/ui/rsyntaxtextarea/themes/monokai.xml";
       "lafTheme" = "Monocai";
     };

@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.gimp;
+  cfg = config.modules.gimp;
 in
 {
-  options.gimp.enable = lib.mkEnableOption "Enable gimp";
+  options.modules.gimp.enable = lib.mkEnableOption "Enable gimp";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    gimp
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.gimp
+    ];
+  };
 }

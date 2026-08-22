@@ -1,15 +1,17 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.unblob;
+  cfg = config.modules.unblob;
 in
 {
-  options.unblob.enable = lib.mkEnableOption "Enable unblob";
+  options.modules.unblob.enable = lib.mkEnableOption "Enable unblob";
 
-  config.home.packages = lib.mkIf cfg.enable [
-    (pkgs.unblob.overridePythonAttrs (old: {
-      doCheck = false;
-      doInstallCheck = false;
-    }))
-  ];
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      (pkgs.unblob.overridePythonAttrs (old: {
+        doCheck = false;
+        doInstallCheck = false;
+      }))
+    ];
+  };
 }

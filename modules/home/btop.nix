@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.btop;
+  cfg = config.modules.btop;
 in
 {
-  options.btop.enable = lib.mkEnableOption "Enable btop";
+  options.modules.btop.enable = lib.mkEnableOption "Enable btop";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    btop
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.btop
+    ];
+  };
 }

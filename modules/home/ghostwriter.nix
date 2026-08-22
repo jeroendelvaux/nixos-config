@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.ghostwriter;
+  cfg = config.modules.ghostwriter;
 in
 {
-  options.ghostwriter.enable = lib.mkEnableOption "Enable ghostwriter";
+  options.modules.ghostwriter.enable = lib.mkEnableOption "Enable ghostwriter";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    kdePackages.ghostwriter
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.kdePackages.ghostwriter
+    ];
+  };
 }

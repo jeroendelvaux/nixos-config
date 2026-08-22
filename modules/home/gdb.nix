@@ -1,12 +1,14 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.gdb;
+  cfg = config.modules.gdb;
 in
 {
-  options.gdb.enable = lib.mkEnableOption "Enable gdb";
+  options.modules.gdb.enable = lib.mkEnableOption "Enable gdb";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    gdb
-  ]);
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.gdb
+    ];
+  };
 }

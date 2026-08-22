@@ -1,16 +1,17 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.semgrep;
+  cfg = config.modules.semgrep;
 in
 {
-  options.semgrep.enable = lib.mkEnableOption "Enable semgrep";
+  options.modules.semgrep.enable = lib.mkEnableOption "Enable semgrep";
 
-  config.home.packages = lib.mkIf cfg.enable (with pkgs; [
-    semgrep
-  ]);
-
-  config.home.sessionVariables = lib.mkIf cfg.enable {
-    SEMGREP_SEND_METRICS = "off";
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.semgrep
+    ];
+    home.sessionVariables = {
+      SEMGREP_SEND_METRICS = "off";
+    };
   };
 }

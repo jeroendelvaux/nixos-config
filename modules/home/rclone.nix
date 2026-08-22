@@ -1,28 +1,29 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.rclone;
+  cfg = config.modules.rclone;
 in
 {
-  options.rclone.enable = lib.mkEnableOption "Enable rclone";
+  options.modules.rclone.enable = lib.mkEnableOption "Enable rclone";
 
-  config.sops.enable = lib.mkIf cfg.enable true;
-
-  config.programs.rclone = lib.mkIf cfg.enable {
-    enable = true;
-    remotes = {
-      remote = {
-        config = {
-          type = secrets.users.owner.rclone.type;
-          hostname = secrets.users.owner.rclone.hostname;
-        };
-        secrets = {
-          token = config.sops.secrets.rclone.path;
-        };
-        mounts = {
-          "/" = {
-            enable = true;
-            mountPoint = "${config.home.homeDirectory}/${secrets.users.owner.rclone.type}";
+  config = lib.mkIf cfg.enable {
+    modules.sops.enable = true;
+    programs.rclone = {
+      enable = true;
+      remotes = {
+        remote = {
+          config = {
+            type = secrets.users.owner.rclone.type;
+            hostname = secrets.users.owner.rclone.hostname;
+          };
+          secrets = {
+            token = config.sops.secrets.rclone.path;
+          };
+          mounts = {
+            "/" = {
+              enable = true;
+              mountPoint = "${config.home.homeDirectory}/${secrets.users.owner.rclone.type}";
+            };
           };
         };
       };
