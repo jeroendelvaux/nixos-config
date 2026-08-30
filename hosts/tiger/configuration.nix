@@ -13,18 +13,26 @@
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.overlays = [ inputs.nur.overlays.default ];
+    nixpkgs.overlays = [
+      inputs.niri.overlays.niri
+      inputs.nur.overlays.default
+    ];
 
     wireguard.enable = true;
     qemu.enable = true;
     gc.enable = true;
 
+    # Because Wayland compositor (Niri) is managed solely through Home Manager:
+    environment.pathsToLink = [
+      "/share/applications"
+      "/share/xdg-desktop-portal"
+    ];
     programs = {
-      hyprland.enable = true;
       dconf.enable = true;
     };
 
     services = {
+      upower.enable = true;
       gnome.gnome-keyring.enable = true;
       gvfs.enable = true;
       udisks2.enable = true;
@@ -62,6 +70,7 @@
       users.${secrets.hosts.tiger.owner.username} = {
         imports = [
           ./home.nix
+          inputs.niri.homeModules.niri
           inputs.nixvim.homeModules.nixvim
           inputs.sops-nix.homeManagerModules.sops
         ];

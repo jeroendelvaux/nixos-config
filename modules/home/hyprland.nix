@@ -13,7 +13,7 @@ in
       settings = {
         "$mod" = "SUPER";
         exec-once = [
-          "waybar"
+          "quickshell"
         ];
         bind = [
           "$mod, R, exec, wofi --show drun"

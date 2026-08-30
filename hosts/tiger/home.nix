@@ -6,14 +6,18 @@
   home.username = secrets.hosts.tiger.owner.username;
   home.homeDirectory = "/home/${secrets.hosts.tiger.owner.username}";
 
-  imports = lib.filesystem.listFilesRecursive ../../modules/home;
+  #imports = lib.filesystem.listFilesRecursive ../../modules/home;
+  imports = lib.filter (path: lib.hasSuffix ".nix" (toString path)) 
+    (lib.filesystem.listFilesRecursive ../../modules/home);
 
   modules = {
     # Window manager:
-    hyprland.enable = true;
+    niri.enable = true;
+    hyprland.enable = false;
     hypridle.enable = true;
     hyprpaper.enable = true;
-    waybar.enable = true;
+    waybar.enable = false;
+    quickshell.enable = true;
     wofi.enable = true;
 
     # Terminal:
@@ -123,5 +127,5 @@
     };
   };
 
-  home.stateVersion = "25.05";
+  home.stateVersion = "26.05";
 }

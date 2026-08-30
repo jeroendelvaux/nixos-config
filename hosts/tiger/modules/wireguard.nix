@@ -39,14 +39,14 @@ in
         name = "wg-connect";
         runtimeInputs = [ pkgs.systemd ];
         text = ''
-          exec sudo systemctl start wg-quick-wg0.service
+          exec systemctl start wg-quick-wg0.service
         '';
       })
       (pkgs.writeShellApplication {
         name = "wg-disconnect";
         runtimeInputs = [ pkgs.systemd ];
         text = ''
-          exec sudo systemctl stop wg-quick-wg0.service --no-block
+          exec systemctl stop wg-quick-wg0.service --no-block
         '';
       })
       (pkgs.writeShellApplication {
@@ -73,5 +73,21 @@ in
         '';
       })
     ];
+
+    security.polkit = {
+      enable = true;
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          if (action.id == "org.freedesktop.systemd1.manage-units" &&
+            action.lookup("unit") == "wg-quick-wg0.service" &&
+            subject.user == "${secrets.hosts.tiger.owner.username}") {
+            var verb = action.lookup("verb");
+            if (verb == "start" || verb == "stop" || verb == "restart") {
+              return polkit.Result.YES;
+            }
+          }
+        });
+      '';
+    };
   };
 }
