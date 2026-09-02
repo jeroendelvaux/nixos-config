@@ -19,8 +19,9 @@ in
             scale = 1.25;
           };
         };
-        input.keyboard.xkb = {
-          layout = "us";
+        input = {
+          keyboard.xkb.layout = "us";
+          focus-follows-mouse.enable = true;
         };
         layout = {
           gaps = 8;

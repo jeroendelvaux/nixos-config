@@ -15,7 +15,6 @@
     niri.enable = true;
     hyprland.enable = false;
     hypridle.enable = true;
-    hyprpaper.enable = true;
     waybar.enable = false;
     quickshell.enable = true;
     wofi.enable = true;

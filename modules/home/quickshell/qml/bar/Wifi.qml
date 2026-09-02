@@ -79,7 +79,7 @@ Rectangle {
       color: wifiRoot.connected
         ? wifiRoot.theme.successColor
         : wifiRoot.theme.alertColor
-      font: wifiRootBox.theme.textFont
+      font: wifiRoot.theme.textFont
     }
   }
 }
