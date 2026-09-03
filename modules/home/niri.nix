@@ -59,8 +59,8 @@ in
           # Focus:
           "Mod+Left".action.focus-column-left = {};
           "Mod+Right".action.focus-column-right = {};
-          "Mod+Up".action.focus-window-up = {};
-          "Mod+Down".action.focus-window-down = {};
+          "Mod+Up".action.focus-window-or-workspace-up = {};
+          "Mod+Down".action.focus-window-or-workspace-down = {};
           "Mod+1".action.focus-workspace = 1;
           "Mod+2".action.focus-workspace = 2;
           "Mod+3".action.focus-workspace = 3;

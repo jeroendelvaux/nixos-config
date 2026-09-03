@@ -18,6 +18,7 @@
       inputs.nur.overlays.default
     ];
 
+    modules.wireshark.enable = true;
     wireguard.enable = true;
     qemu.enable = true;
     gc.enable = true;

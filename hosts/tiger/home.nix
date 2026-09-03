@@ -95,9 +95,10 @@
     semgrep.enable = true;
     tcpdump.enable = true;
     unblob.enable = true;
-    wireshark.enable = true;
 
+    # Dark themes:
     gtk3.enable = true;
+    qt.enable = true;
 
     # Programming:
     python.enable = true;
