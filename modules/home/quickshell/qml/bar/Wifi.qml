@@ -1,31 +1,17 @@
+import QtQuick
 import Quickshell
 import Quickshell.Io
-import QtQuick
-import QtQuick.Layouts
 
-Rectangle {
+BarButton {
   id: wifiRoot
-  height: 33
-  width: 33
-  color: mouseArea.pressed
-    ? wifiRoot.theme.surfacePressedColor
-    : (mouseArea.containsMouse
-        ? wifiRoot.theme.surfaceHoverColor
-        : wifiRoot.theme.surfaceColor)
-  radius: 8
-  border.color: wifiRoot.theme.borderColor
-  border.width: 1
-  scale: mouseArea.pressed ? 0.95 : 1.0
-  Behavior on scale {
-    NumberAnimation {
-      duration: 50;
-      easing.type: Easing.OutQuad
-    }
-  }
 
-  readonly property Theme theme: Theme {}
   property string ssid: "Disconnected"
   property bool connected: false
+
+  onClicked: {
+    wifiRoot.connected = !wifiRoot.connected;
+    toggleProc.running = true;
+  }
 
   Process {
     id: wifiProc
@@ -53,17 +39,6 @@ Rectangle {
     onExited: wifiProc.running = true
   }
 
-  MouseArea {
-    id: mouseArea
-    anchors.fill: parent
-    hoverEnabled: true
-    cursorShape: Qt.PointingHandCursor
-    onClicked: {
-      wifiRoot.connected = !wifiRoot.connected;
-      toggleProc.running = true;
-    }
-  }
-
   Timer {
     interval: 5000
     running: true
@@ -71,15 +46,12 @@ Rectangle {
     onTriggered: wifiProc.running = true
   }
 
-  RowLayout {
-    id: wifiLayout
+  Text {
     anchors.centerIn: parent
-    Text {
-      text: wifiRoot.connected ? "󰤨 " : "󰤭 "
-      color: wifiRoot.connected
-        ? wifiRoot.theme.successColor
-        : wifiRoot.theme.alertColor
-      font: wifiRoot.theme.textFont
-    }
+    text: wifiRoot.connected ? "󰤨 " : "󰤭 "
+    color: wifiRoot.connected
+      ? wifiRoot.theme.successColor
+      : wifiRoot.theme.alertColor
+    font: wifiRoot.theme.textFont
   }
 }

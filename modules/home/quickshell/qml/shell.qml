@@ -6,4 +6,5 @@ import "./wallpaper"
 ShellRoot {
     Bar {}
     Wallpaper {}
+    NiriWorkspaces {}
 }

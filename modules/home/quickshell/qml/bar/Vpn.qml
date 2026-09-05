@@ -2,26 +2,16 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Rectangle {
+BarButton {
   id: vpnRoot
-  height: 33
-  width: 33
-  color: mouseArea.pressed 
-    ? vpnRoot.theme.surfacePressedColor 
-    : (mouseArea.containsMouse 
-        ? vpnRoot.theme.surfaceHoverColor 
-        : vpnRoot.theme.surfaceColor)
-  radius: 8
-  border.color: vpnRoot.theme.borderColor
-  border.width: 1
 
-  scale: mouseArea.pressed ? 0.95 : 1.0
-  Behavior on scale {
-    NumberAnimation { duration: 50; easing.type: Easing.OutQuad }
-  }
-
-  readonly property Theme theme: Theme {}
   property bool isConnected: false
+
+  onClicked: {
+    if (toggleProc.running) return;
+    vpnRoot.isConnected = !vpnRoot.isConnected;
+    toggleProc.running = true;
+  }
 
   Process {
     id: toggleProc
@@ -61,18 +51,6 @@ Rectangle {
       if (!vpnProc.running && !toggleProc.running) {
         vpnProc.running = true;
       }
-    }
-  }
-
-  MouseArea {
-    id: mouseArea
-    anchors.fill: parent
-    hoverEnabled: true
-    cursorShape: Qt.PointingHandCursor
-    onClicked: {
-      if (toggleProc.running) return;
-      vpnRoot.isConnected = !vpnRoot.isConnected;
-      toggleProc.running = true;
     }
   }
 

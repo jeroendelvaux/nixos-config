@@ -97,7 +97,7 @@
     unblob.enable = true;
 
     # Dark themes:
-    gtk3.enable = true;
+    gtk.enable = true;
     qt.enable = true;
 
     # Programming:

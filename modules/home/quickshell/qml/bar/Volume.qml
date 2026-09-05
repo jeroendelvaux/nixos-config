@@ -1,32 +1,17 @@
 import QtQuick
-import QtQuick.Layouts
-import QtQuick.Controls.Basic
 import Quickshell
 import Quickshell.Io
 
-Rectangle {
+BarButton {
   id: volumeRoot
-  height: 33
-  width: 33
-  color: mouseArea.pressed
-    ? volumeRoot.theme.surfacePressedColor
-    : (mouseArea.containsMouse
-        ? volumeRoot.theme.surfaceHoverColor
-        : volumeRoot.theme.surfaceColor)
-  radius: 8
-  border.color: volumeRoot.theme.borderColor
-  border.width: 1
-  scale: mouseArea.pressed ? 0.95 : 1.0
-  Behavior on scale {
-    NumberAnimation {
-      duration: 50;
-      easing.type: Easing.OutQuad
-    }
-  }
 
-  readonly property Theme theme: Theme {}
   property int volumeValue: 0
   property bool muted: false
+
+  onClicked: {
+    volumeRoot.muted = !volumeRoot.muted;
+    toggleProc.running = true;
+  }
 
   Process {
     id: volumeProc
@@ -47,19 +32,8 @@ Rectangle {
 
   Process {
     id: toggleProc
-    command: ["sh", "-c", "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"];
+    command: ["sh", "-c", "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"]
     onExited: volumeProc.running = true
-  }
-
-  MouseArea {
-    id: mouseArea
-    anchors.fill: parent
-    hoverEnabled: true
-    cursorShape: Qt.PointingHandCursor
-    onClicked: {
-      volumeRoot.muted = !volumeRoot.muted;
-      toggleProc.running = true;
-    }
   }
 
   Timer {
@@ -75,6 +49,7 @@ Rectangle {
     color: volumeRoot.muted || volumeRoot.volumeValue === 0
       ? volumeRoot.theme.alertColor
       : volumeRoot.theme.successColor
-    font: volumeRoot.theme.textFont
+    font: volumeRoot.font
   }
 }
+
