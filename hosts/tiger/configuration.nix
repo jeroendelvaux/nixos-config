@@ -1,13 +1,13 @@
 { lib, pkgs, pkgs-unstable, secrets, inputs, ... }:
 
 {
-  imports = 
+  imports = lib.filter (path: lib.hasSuffix ".nix" (toString path)) (
     (lib.filesystem.listFilesRecursive ./modules)
     ++ (lib.filesystem.listFilesRecursive ../../modules/nixos)
-    ++ [
-      ./hardware-configuration.nix
-      secrets.nixosModules.m50741583
-    ];
+  ) ++ [
+    ./hardware-configuration.nix
+    secrets.nixosModules.m50741583
+  ];
 
   config = {
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
