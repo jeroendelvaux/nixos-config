@@ -22,6 +22,9 @@
     wireguard.enable = true;
     qemu.enable = true;
     gc.enable = true;
+    nixos = {
+      asusd.enable = true;
+    };
 
     # Because Wayland compositor (Niri) is managed solely through Home Manager:
     environment.pathsToLink = [

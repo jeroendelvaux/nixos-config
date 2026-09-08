@@ -8,6 +8,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
+      pkgs.brightnessctl
       pkgs.xwayland-satellite
     ];
     programs.niri = {
@@ -49,18 +50,17 @@ in
           { argv = ["quickshell"]; }
         ];
         binds = {
-          "Mod+Shift+E".action.quit.skip-confirmation = true;
-          "Mod+L".action.spawn = "hyprlock";
-          "Mod+Q".action.close-window = {};
           # Launch applications:
           "Mod+T".action.spawn = "foot";
           "Mod+Return".action.spawn = "foot";
           "Mod+Space".action.spawn = ["wofi" "--show" "drun"];
-          # Focus:
+          # Windows:
           "Mod+Left".action.focus-column-left = {};
           "Mod+Right".action.focus-column-right = {};
           "Mod+Up".action.focus-window-or-workspace-up = {};
           "Mod+Down".action.focus-window-or-workspace-down = {};
+          "Mod+Q".action.close-window = {};
+          # Workspaces:
           "Mod+1".action.focus-workspace = 1;
           "Mod+2".action.focus-workspace = 2;
           "Mod+3".action.focus-workspace = 3;
@@ -87,10 +87,17 @@ in
           # Moving:
           "Mod+Shift+Left".action.move-column-left = {};
           "Mod+Shift+Right".action.move-column-right = {};
-          "Mod+Shift+F".action.toggle-window-floating = {};
-          # Help:
+          # Floating windows:
+          "Mod+V".action.switch-focus-between-floating-and-tiling = {};
+          "Mod+Shift+V".action.toggle-window-floating = {};
+          # Overview:
           "Mod+O".action.toggle-overview = {};
+          # Help:
           "Mod+H".action.show-hotkey-overlay = {};
+          # Lock screen:
+          "Mod+L".action.spawn = "hyprlock";
+          # Exit:
+          "Mod+Shift+E".action.quit.skip-confirmation = true;
           # Media keys:
           "XF86AudioRaiseVolume" = {
             allow-when-locked = true;
@@ -117,6 +124,22 @@ in
               "set-mute"
               "@DEFAULT_AUDIO_SINK@"
               "toggle"
+            ];
+          };
+          "XF86MonBrightnessUp" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "brightnessctl"
+              "s"
+              "5%+"
+            ];
+          };
+          "XF86MonBrightnessDown" = {
+            allow-when-locked = true;
+            action.spawn = [
+              "brightnessctl"
+              "s"
+              "5%-"
             ];
           };
         };
