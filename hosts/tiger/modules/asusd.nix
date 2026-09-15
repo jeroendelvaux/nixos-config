@@ -1,10 +1,12 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.nixos.asusd;
+  cfg = config.modules.nixos.asusd;
 in
 {
-  options.nixos.asusd.enable = lib.mkEnableOption "Enable asusd";
+  options.modules.nixos.asusd = {
+    enable = lib.mkEnableOption "Enable asusd";
+  };
 
   config = lib.mkIf cfg.enable {
     services.asusd.enable = true;

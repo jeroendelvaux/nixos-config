@@ -22,8 +22,9 @@
     wireguard.enable = true;
     qemu.enable = true;
     gc.enable = true;
-    nixos = {
+    modules.nixos = {
       asusd.enable = true;
+      #openrgb.enable = true;
     };
 
     # Because Wayland compositor (Niri) is managed solely through Home Manager:

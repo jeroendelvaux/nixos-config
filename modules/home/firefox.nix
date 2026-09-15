@@ -28,12 +28,30 @@ in
             ublock-origin # Blocks malware sites, ads, trackers, etc.
           ];
         };
+        captive = {
+          isDefault = false;
+          id = 1;
+          settings = {
+            # Detect captive portals:
+            "network.captive-portal-service.enabled" = true;
+            # Disable built-in DNS-over-HTTPS (DoH):
+            "network.trr.mode" = 5;
+            # Do not upgrade HTTP to HTTPS:
+            "dom.security.https_only_mode" = false;
+            # Do not restore the previous session after a crash:
+            "browser.sessionstore.resume_from_crash" = false;
+            # Discard history, cookies, and cached pages when closing Firefox:
+            "browser.privatebrowsing.autostart" = true;
+            # HTTP-only start page:
+            "browser.startup.page" = 1;
+            "browser.startup.homepage" = "http://neverssl.com";
+          };
+        };
       };
       policies = {
         DisableTelemetry = true;
         DisableFirefoxStudies = true;
       };
-      #configPath = "${config.xdg.configHome}/mozilla/firefox";
     };
   };
 }
