@@ -19,7 +19,10 @@
     ];
 
     modules.wireshark.enable = true;
-    wireguard.enable = true;
+    wireguard = {
+      enable = true;
+      address = "10.100.0.2/32";
+    };
     qemu.enable = true;
     gc.enable = true;
     modules.nixos = {

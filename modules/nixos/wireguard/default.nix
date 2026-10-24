@@ -4,7 +4,14 @@ let
   cfg = config.wireguard;
 in
 {
-  options.wireguard.enable = lib.mkEnableOption "Enable wireguard";
+  options.wireguard = {
+    enable = lib.mkEnableOption "Enable wireguard";
+    address = lib.mkOption {
+      type = lib.types.str;
+      default = "10.100.0.2/32";
+      description = "The WireGuard IP address for this client.";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     sops = {
@@ -21,8 +28,8 @@ in
 
     networking.wg-quick.interfaces.wg0 = {
       autostart = false;
-      address = [ "10.100.0.2/32" ];
-      dns = [ "1.1.1.1" ];
+      address = [ cfg.address ];
+      mtu = 1360;
       privateKeyFile = config.sops.secrets."wireguard".path;
       peers = [
         {
@@ -36,29 +43,24 @@ in
 
     environment.systemPackages = [
       (pkgs.writeShellApplication {
+        name = "mtu-check";
+        runtimeInputs = [ pkgs.systemd ];
+        text = builtins.readFile ./mtu-check.sh;
+      })
+      (pkgs.writeShellApplication {
         name = "wg-connect";
         runtimeInputs = [ pkgs.systemd ];
-        text = ''
-          exec systemctl start wg-quick-wg0.service
-        '';
+        text = builtins.readFile ./wg-connect.sh;
       })
       (pkgs.writeShellApplication {
         name = "wg-disconnect";
         runtimeInputs = [ pkgs.systemd ];
-        text = ''
-          exec systemctl stop wg-quick-wg0.service --no-block
-        '';
+        text = builtins.readFile ./wg-disconnect.sh;
       })
       (pkgs.writeShellApplication {
         name = "wg-status";
         runtimeInputs = [ pkgs.systemd ];
-        text = ''
-          if systemctl is-active --quiet wg-quick-wg0.service; then
-            echo "connected"
-          else
-            echo "disconnected"
-          fi
-        '';
+        text = builtins.readFile ./wg-status.sh;
       })
       (pkgs.writeShellApplication {
         name = "wg-gen-peer";
@@ -69,7 +71,7 @@ in
         text = ''
           export SERVER_PUBKEY="${secrets.hosts.puma.wireguardPublicKey}"
           export SERVER_ENDPOINT="${secrets.hosts.puma.ip}:51820"
-          ${builtins.readFile ../scripts/wg-gen-peer.sh}
+          ${builtins.readFile ./wg-gen-peer.sh}
         '';
       })
     ];
