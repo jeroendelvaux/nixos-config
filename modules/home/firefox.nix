@@ -22,6 +22,8 @@ in
             "browser.newtabpage.activity-stream.feeds.topsites" = false;
             "browser.newtabpage.activity-stream.section.topstories.guide" = false;
             "browser.ai.control.default" = "blocked";
+            "signon.rememberSignons" = false;
+            "extensions.formautofill.creditCards.enabled" = false;
           };
           extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
             darkreader # Inverts bright colors.

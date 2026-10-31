@@ -29,7 +29,7 @@ in
     networking.wg-quick.interfaces.wg0 = {
       autostart = false;
       address = [ cfg.address ];
-      mtu = 1360;
+      mtu = 1280;
       privateKeyFile = config.sops.secrets."wireguard".path;
       peers = [
         {

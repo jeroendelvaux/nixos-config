@@ -18,7 +18,6 @@
       inputs.nur.overlays.default
     ];
 
-    modules.wireshark.enable = true;
     wireguard = {
       enable = true;
       address = "10.100.0.2/32";
@@ -26,6 +25,14 @@
     qemu.enable = true;
     gc.enable = true;
     modules.nixos = {
+      docker = {
+        enable = true;
+        user = secrets.hosts.tiger.owner.username;
+      };
+      wireshark = {
+        enable = true;
+        user = secrets.hosts.tiger.owner.username;
+      };
       asusd.enable = true;
       #openrgb.enable = true;
     };

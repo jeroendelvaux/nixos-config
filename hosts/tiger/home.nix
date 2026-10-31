@@ -6,9 +6,11 @@
   home.username = secrets.hosts.tiger.owner.username;
   home.homeDirectory = "/home/${secrets.hosts.tiger.owner.username}";
 
-  #imports = lib.filesystem.listFilesRecursive ../../modules/home;
   imports = lib.filter (path: lib.hasSuffix ".nix" (toString path)) 
-    (lib.filesystem.listFilesRecursive ../../modules/home);
+    (lib.filesystem.listFilesRecursive ../../modules/home)
+    ++ [
+      secrets.homeManagerModules.m57918089
+  ];
 
   modules = {
     # Window manager:

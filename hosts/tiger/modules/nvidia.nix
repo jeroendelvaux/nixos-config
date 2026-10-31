@@ -21,18 +21,21 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    (writeShellScriptBin "nvidia-offload" ''
-      #!${bash}/bin/bash
-      if [[ $# -ne 1 ]]; then
-        echo "Expecting one argument. Try: nvidia-offload <executable>"
-        exit 2
-      fi
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
-      exec "$@"
-    '')
+  environment.systemPackages = [
+    (pkgs.writeShellApplication {
+      name = "nvidia-offload";
+      runtimeInputs = []; 
+      text = ''
+        if [[ $# -ne 1 ]]; then
+          echo "Expecting one argument. Try: nvidia-offload <executable>" >&2
+          exit 2
+        fi
+        export __NV_PRIME_RENDER_OFFLOAD=1
+        export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+        export __GLX_VENDOR_LIBRARY_NAME=nvidia
+        export __VK_LAYER_NV_optimus=NVIDIA_only
+        exec "$@"
+      '';
+    })
   ];
 }
