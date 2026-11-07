@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.quickshell;
+  cfg = config.modules.home.quickshell;
 in
 {
-  options.modules.quickshell.enable = lib.mkEnableOption "Enable quickshell";
+  options.modules.home.quickshell.enable = lib.mkEnableOption "quickshell";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

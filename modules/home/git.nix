@@ -1,13 +1,13 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, secrets, ... }:
 
 let
-  cfg = config.modules.git;
+  cfg = config.modules.home.git;
 in
 {
-  options.modules.git.enable = lib.mkEnableOption "Enable git";
+  options.modules.home.git.enable = lib.mkEnableOption "git";
 
   config = lib.mkIf cfg.enable {
-    modules.sops.enable = true;
+    modules.home.sops.enable = true;
     programs.git = {
       enable = true;
       settings = {

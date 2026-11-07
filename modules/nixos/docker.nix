@@ -1,11 +1,11 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.modules.nixos.docker;
 in
 {
   options.modules.nixos.docker = {
-    enable = lib.mkEnableOption "Enable Docker";
+    enable = lib.mkEnableOption "Docker";
     user = lib.mkOption {
       type = lib.types.str;
       description = "The username to grant Docker group access to.";

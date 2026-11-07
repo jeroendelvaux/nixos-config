@@ -1,10 +1,16 @@
-{ config, lib, pkgs, pkgs-unstable, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.qemu;
+  cfg = config.modules.nixos.qemu;
 in
 {
-  options.qemu.enable = lib.mkEnableOption "Enable qemu";
+  options.modules.nixos.qemu = {
+    enable = lib.mkEnableOption "QEMU";
+    user = lib.mkOption {
+      type = lib.types.str;
+      description = "The username to grant QEMU group access to.";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
@@ -14,9 +20,7 @@ in
 
     programs.virt-manager.enable = true;
 
-    users.groups.libvirtd.members = [
-      secrets.hosts.tiger.owner.username
-    ];
+    users.groups.libvirtd.members = [ cfg.user ];
 
     virtualisation = {
       libvirtd.enable = true;

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, ... }:
 
 let
-  cfg = config.modules.nh;
+  cfg = config.modules.home.nh;
 in
 {
-  options.modules.nh.enable = lib.mkEnableOption "Enable nh";
+  options.modules.home.nh.enable = lib.mkEnableOption "nh";
 
   config = lib.mkIf cfg.enable {
     programs.nh = {

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.gdb;
+  cfg = config.modules.home.gdb;
 in
 {
-  options.modules.gdb.enable = lib.mkEnableOption "Enable gdb";
+  options.modules.home.gdb.enable = lib.mkEnableOption "GDB";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

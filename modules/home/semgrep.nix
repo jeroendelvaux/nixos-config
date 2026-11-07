@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.semgrep;
+  cfg = config.modules.home.semgrep;
 in
 {
-  options.modules.semgrep.enable = lib.mkEnableOption "Enable semgrep";
+  options.modules.home.semgrep.enable = lib.mkEnableOption "semgrep";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

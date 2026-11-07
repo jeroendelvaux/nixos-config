@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.gimp;
+  cfg = config.modules.home.gimp;
 in
 {
-  options.modules.gimp.enable = lib.mkEnableOption "Enable gimp";
+  options.modules.home.gimp.enable = lib.mkEnableOption "GIMP";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

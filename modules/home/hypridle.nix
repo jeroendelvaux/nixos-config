@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.hypridle;
+  cfg = config.modules.home.hypridle;
 in
 {
-  options.modules.hypridle.enable = lib.mkEnableOption "Enable hypridle";
+  options.modules.home.hypridle.enable = lib.mkEnableOption "hypridle";
 
   config = lib.mkIf cfg.enable {
     services.hypridle = {

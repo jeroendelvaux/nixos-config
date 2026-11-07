@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.blender;
+  cfg = config.modules.home.blender;
 in
 {
-  options.modules.blender.enable = lib.mkEnableOption "Enable blender";
+  options.modules.home.blender.enable = lib.mkEnableOption "Blender";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

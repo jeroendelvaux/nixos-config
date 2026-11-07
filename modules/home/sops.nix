@@ -1,10 +1,10 @@
 { config, lib, pkgs, secrets, ... }:
 
 let
-  cfg = config.modules.sops;
+  cfg = config.modules.home.sops;
 in
 {
-  options.modules.sops.enable = lib.mkEnableOption "Enable sops";
+  options.modules.home.sops.enable = lib.mkEnableOption "sops";
 
   config = lib.mkIf cfg.enable {
     sops = {

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, ... }:
 
 let
-  cfg = config.modules.wofi;
+  cfg = config.modules.home.wofi;
 in
 {
-  options.modules.wofi.enable = lib.mkEnableOption "Enable wofi";
+  options.modules.home.wofi.enable = lib.mkEnableOption "wofi";
 
   config = lib.mkIf cfg.enable {
     programs.wofi = {

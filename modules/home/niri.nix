@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.niri;
+  cfg = config.modules.home.niri;
 in
 {
-  options.modules.niri.enable = lib.mkEnableOption "Enable niri";
+  options.modules.home.niri.enable = lib.mkEnableOption "niri";
 
   config = lib.mkIf cfg.enable {
     home.packages = [
@@ -22,7 +22,7 @@ in
         };
         input = {
           keyboard.xkb.layout = "us";
-          focus-follows-mouse.enable = true;
+          focus-follows-mouse.enable = false;
         };
         layout = {
           gaps = 8;
@@ -142,17 +142,6 @@ in
               "5%-"
             ];
           };
-        };
-      };
-    };
-    xdg.portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-      ];
-      config = {
-        common = {
-          default = [ "gtk" ];
         };
       };
     };

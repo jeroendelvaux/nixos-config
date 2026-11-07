@@ -22,8 +22,6 @@ PanelWindow {
     anchors.rightMargin: 12
     Workspaces {}
     Item { Layout.fillWidth: true }
-    Clock {}
-    Item { Layout.fillWidth: true }
     RowLayout {
       spacing: 10
       Vpn {}
@@ -31,5 +29,8 @@ PanelWindow {
       Volume {}
       Battery {}
     }
+  }
+  Clock {
+    anchors.centerIn: parent
   }
 }

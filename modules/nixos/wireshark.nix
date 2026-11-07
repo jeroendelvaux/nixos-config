@@ -1,11 +1,11 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.modules.nixos.wireshark;
 in
 {
   options.modules.nixos.wireshark = {
-    enable = lib.mkEnableOption "Enable Wireshark";
+    enable = lib.mkEnableOption "Wireshark";
     user = lib.mkOption {
       type = lib.types.str;
       description = "The username to grant Wireshark group access to.";

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.python;
+  cfg = config.modules.home.python;
 in
 {
-  options.modules.python.enable = lib.mkEnableOption "Enable python";
+  options.modules.home.python.enable = lib.mkEnableOption "Python";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [

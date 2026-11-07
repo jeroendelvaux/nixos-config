@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.imagemagick;
+  cfg = config.modules.home.imagemagick;
 in
 {
-  options.modules.imagemagick.enable = lib.mkEnableOption "Enable imagemagick";
+  options.modules.home.imagemagick.enable = lib.mkEnableOption "imagemagick";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

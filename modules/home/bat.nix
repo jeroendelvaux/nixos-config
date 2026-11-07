@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.bat;
+  cfg = config.modules.home.bat;
 in
 {
-  options.modules.bat.enable = lib.mkEnableOption "Enable bat";
+  options.modules.home.bat.enable = lib.mkEnableOption "bat";
 
   config = lib.mkIf cfg.enable {
     programs.bat = {

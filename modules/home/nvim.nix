@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, ... }:
 
 let
-  cfg = config.modules.nvim;
+  cfg = config.modules.home.nvim;
 in
 {
-  options.modules.nvim.enable = lib.mkEnableOption "Enable nvim";
+  options.modules.home.nvim.enable = lib.mkEnableOption "nvim";
 
   config = lib.mkIf cfg.enable {
     programs.nixvim = {

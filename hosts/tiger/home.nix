@@ -12,12 +12,10 @@
       secrets.homeManagerModules.m57918089
   ];
 
-  modules = {
+  modules.home = {
     # Window manager:
     niri.enable = true;
-    hyprland.enable = false;
     hypridle.enable = true;
-    waybar.enable = false;
     quickshell.enable = true;
     wofi.enable = true;
 
@@ -29,8 +27,10 @@
     # Fonts:
     fonts.enable = true;
 
-    # Browser:
+    # Browsers:
     firefox.enable = true;
+    chromium.enable = true;
+    edge.enable = true;
 
     # Code editor:
     nvim.enable = true;

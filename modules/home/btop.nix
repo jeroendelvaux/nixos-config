@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.btop;
+  cfg = config.modules.home.btop;
 in
 {
-  options.modules.btop.enable = lib.mkEnableOption "Enable btop";
+  options.modules.home.btop.enable = lib.mkEnableOption "btop";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

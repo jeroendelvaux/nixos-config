@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.foot;
+  cfg = config.modules.home.foot;
 in
 {
-  options.modules.foot.enable = lib.mkEnableOption "Enable foot";
+  options.modules.home.foot.enable = lib.mkEnableOption "foot";
 
   config = lib.mkIf cfg.enable {
     programs.foot = {

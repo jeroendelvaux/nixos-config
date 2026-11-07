@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.hexedit;
+  cfg = config.modules.home.hexedit;
 in
 {
-  options.modules.hexedit.enable = lib.mkEnableOption "Enable hexedit";
+  options.modules.home.hexedit.enable = lib.mkEnableOption "hexedit";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

@@ -1,7 +1,7 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.ventoy;
+  cfg = config.modules.home.ventoy;
   ventoyPkgs = import pkgs.path {
     localSystem = pkgs.stdenv.hostPlatform;
     config = {
@@ -15,7 +15,7 @@ let
   };
 in
 {
-  options.modules.ventoy.enable = lib.mkEnableOption "Enable ventoy";
+  options.modules.home.ventoy.enable = lib.mkEnableOption "ventoy";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

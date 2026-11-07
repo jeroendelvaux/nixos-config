@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.okular;
+  cfg = config.modules.home.okular;
 in
 {
-  options.modules.okular.enable = lib.mkEnableOption "Enable okular";
+  options.modules.home.okular.enable = lib.mkEnableOption "okular";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

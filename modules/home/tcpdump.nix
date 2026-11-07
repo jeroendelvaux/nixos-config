@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.tcpdump;
+  cfg = config.modules.home.tcpdump;
 in
 {
-  options.modules.tcpdump.enable = lib.mkEnableOption "Enable tcpdump";
+  options.modules.home.tcpdump.enable = lib.mkEnableOption "tcpdump";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

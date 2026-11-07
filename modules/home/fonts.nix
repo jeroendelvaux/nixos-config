@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.fonts;
+  cfg = config.modules.home.fonts;
 in
 {
-  options.modules.fonts.enable = lib.mkEnableOption "Enable fonts";
+  options.modules.home.fonts.enable = lib.mkEnableOption "fonts";
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [

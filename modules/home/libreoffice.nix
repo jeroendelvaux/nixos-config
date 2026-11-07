@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.libreoffice;
+  cfg = config.modules.home.libreoffice;
 in
 {
-  options.modules.libreoffice.enable = lib.mkEnableOption "Enable LibreOffice";
+  options.modules.home.libreoffice.enable = lib.mkEnableOption "LibreOffice";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

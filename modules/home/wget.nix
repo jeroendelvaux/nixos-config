@@ -1,16 +1,16 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.wget;
+  cfg = config.modules.home.wget;
 in
 {
-  options.modules.wget.enable = lib.mkEnableOption "Enable wget";
+  options.modules.home.wget.enable = lib.mkEnableOption "wget";
 
   config = lib.mkIf cfg.enable {
     home.packages = [
       pkgs.wget
     ];
-    programs.fish.shellAbbrs = lib.mkIf (config.modules.fish.enable or false) {
+    programs.fish.shellAbbrs = lib.mkIf (config.modules.home.fish.enable or false) {
       "wget" = "wget -c";
     };
   };

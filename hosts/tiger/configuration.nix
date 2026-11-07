@@ -22,9 +22,15 @@
       enable = true;
       address = "10.100.0.2/32";
     };
-    qemu.enable = true;
+
     gc.enable = true;
     modules.nixos = {
+      xdg.enable = true;
+      asusd.enable = true;
+      qemu = {
+        enable = false;
+        user = secrets.hosts.tiger.owner.username;
+      };
       docker = {
         enable = true;
         user = secrets.hosts.tiger.owner.username;
@@ -33,7 +39,7 @@
         enable = true;
         user = secrets.hosts.tiger.owner.username;
       };
-      asusd.enable = true;
+
       #openrgb.enable = true;
     };
 

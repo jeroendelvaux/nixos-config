@@ -1,16 +1,16 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.eza;
+  cfg = config.modules.home.eza;
 in
 {
-  options.modules.eza.enable = lib.mkEnableOption "Enable eza";
+  options.modules.home.eza.enable = lib.mkEnableOption "eza";
 
   config = lib.mkIf cfg.enable {
     home.packages = [
       pkgs.eza
     ];
-    programs.fish.shellAbbrs = lib.mkIf (config.modules.fish.enable or false) {
+    programs.fish.shellAbbrs = lib.mkIf (config.modules.home.fish.enable or false) {
       "ls" = "eza";
     };
   };

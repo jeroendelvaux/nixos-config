@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.nmap;
+  cfg = config.modules.home.nmap;
 in
 {
-  options.modules.nmap.enable = lib.mkEnableOption "Enable nmap";
+  options.modules.home.nmap.enable = lib.mkEnableOption "nmap";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

@@ -14,12 +14,13 @@ Rectangle {
   radius: 8
   border.width: 1
   border.color: theme.borderColor
-
   color: mouseArea.pressed 
     ? theme.surfacePressedColor 
     : (mouseArea.containsMouse ? theme.surfaceHoverColor : theme.surfaceColor)
+  scale: mouseArea.pressed 
+    ? 0.9 
+    : (mouseArea.containsMouse ? 1.1 : 1.0)
 
-  scale: mouseArea.pressed ? theme.hoverScale : 1.0
   Behavior on scale {
     NumberAnimation { duration: theme.animDurationFast; easing.type: Easing.OutQuad }
   }

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.android-tools;
+  cfg = config.modules.home.android-tools;
 in
 {
-  options.modules.android-tools.enable = lib.mkEnableOption "Enable android-tools";
+  options.modules.home.android-tools.enable = lib.mkEnableOption "Android tools";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

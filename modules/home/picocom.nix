@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.picocom;
+  cfg = config.modules.home.picocom;
 in
 {
-  options.modules.picocom.enable = lib.mkEnableOption "Enable picocom";
+  options.modules.home.picocom.enable = lib.mkEnableOption "picocom";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

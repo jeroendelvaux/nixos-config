@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.ghostwriter;
+  cfg = config.modules.home.ghostwriter;
 in
 {
-  options.modules.ghostwriter.enable = lib.mkEnableOption "Enable ghostwriter";
+  options.modules.home.ghostwriter.enable = lib.mkEnableOption "Ghostwriter";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

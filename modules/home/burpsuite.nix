@@ -1,23 +1,34 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.burpsuite;
+  cfg = config.modules.home.burpsuite;
+  niriEnabled = config.modules.home.niri.enable or false;
+  javaOpts = lib.concatStringsSep " " [
+    "-Dsun.awt.disablegrab=true"
+    "-Dawt.useSystemAAFontSettings=on"
+    "-Dswing.aatext=true"
+    "-Dsun.java2d.uiScale=1.5"
+  ];
+  burpPkg = pkgs.symlinkJoin {
+    name = "burpsuite-wrapped";
+    paths = [ pkgs.burpsuite ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/burpsuite \
+        --add-flags "--user-config-file=${config.xdg.configHome}/burp/user-config.json" \
+        ${lib.optionalString niriEnabled ''
+          --set _JAVA_AWT_WM_NONREPARENTING "1" \
+          --set _JAVA_OPTIONS "${javaOpts}"
+        ''}
+    '';
+  };
 in
 {
-  options.modules.burpsuite.enable = lib.mkEnableOption "Enable Burp Suite";
+  options.modules.home.burpsuite.enable = lib.mkEnableOption "Burp Suite";
 
   config = lib.mkIf cfg.enable {
-    modules.java.enable = true;
     home.packages = [
-      (pkgs.symlinkJoin {
-        name = "burpsuite-wrapped";
-        paths = [ pkgs.burpsuite ];
-        buildInputs = [ pkgs.makeWrapper ];
-        postBuild = ''
-        wrapProgram $out/bin/burpsuite --add-flags \
-          "--user-config-file=${config.xdg.configHome}/burp/user-config.json"
-        '';
-      })
+      burpPkg
     ];
     xdg = {
       configFile."burp/user-config.json".text = builtins.toJSON {
@@ -33,3 +44,4 @@ in
     };
   };
 }
+

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.rizin;
+  cfg = config.modules.home.rizin;
 in
 {
-  options.modules.rizin.enable = lib.mkEnableOption "Enable rizin";
+  options.modules.home.rizin.enable = lib.mkEnableOption "rizin";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

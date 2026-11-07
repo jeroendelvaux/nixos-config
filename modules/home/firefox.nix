@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.firefox;
+  cfg = config.modules.home.firefox;
 in
 {
-  options.modules.firefox.enable = lib.mkEnableOption "Enable firefox";
+  options.modules.home.firefox.enable = lib.mkEnableOption "Firefox";
 
   config = lib.mkIf cfg.enable {
     programs.firefox = {

@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.imv;
+  cfg = config.modules.home.imv;
 in
 {
-  options.modules.imv.enable = lib.mkEnableOption "Enable imv";
+  options.modules.home.imv.enable = lib.mkEnableOption "imv";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

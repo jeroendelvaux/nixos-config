@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.gtk;
+  cfg = config.modules.home.gtk;
 in
 {
-  options.modules.gtk.enable = lib.mkEnableOption "Enable gtk";
+  options.modules.home.gtk.enable = lib.mkEnableOption "GTK";
 
   config = lib.mkIf cfg.enable {
     home.packages = [
@@ -21,7 +21,11 @@ in
     };
 
     home.sessionVariables = {
-      XDG_DATA_DIRS = "$HOME/.nix-profile/share:/etc/profiles/per-user/$USER/share:/run/current-system/sw/share";
+      XDG_DATA_DIRS = lib.concatStringsSep ":" [
+        "$HOME/.nix-profile/share"
+        "/etc/profiles/per-user/$USER/share"
+        "/run/current-system/sw/share"
+      ];
     };
   };
 }

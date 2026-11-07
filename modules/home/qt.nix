@@ -1,19 +1,14 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, ... }:
 
 let
-  cfg = config.modules.qt;
+  cfg = config.modules.home.qt;
 in
 {
-  options.modules.qt.enable = lib.mkEnableOption "Enable qt";
+  options.modules.home.qt.enable = lib.mkEnableOption "QT";
 
   config = lib.mkIf cfg.enable {
     qt = {
       enable = true;
-      platformTheme.name = "gtk3";
-      style = {
-        name = "adwaita";
-        package = pkgs.adwaita-qt;
-      };
     };
   };
 }

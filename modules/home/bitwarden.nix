@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.bitwarden;
+  cfg = config.modules.home.bitwarden;
 in
 {
-  options.modules.bitwarden.enable = lib.mkEnableOption "Enable bitwarden";
+  options.modules.home.bitwarden.enable = lib.mkEnableOption "Bitwarden";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

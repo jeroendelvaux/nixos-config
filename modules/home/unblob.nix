@@ -1,10 +1,10 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.unblob;
+  cfg = config.modules.home.unblob;
 in
 {
-  options.modules.unblob.enable = lib.mkEnableOption "Enable unblob";
+  options.modules.home.unblob.enable = lib.mkEnableOption "unblob";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

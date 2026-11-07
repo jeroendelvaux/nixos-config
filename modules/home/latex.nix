@@ -1,7 +1,7 @@
-{ config, lib, pkgs, secrets, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.latex;
+  cfg = config.modules.home.latex;
   mylatex = pkgs.texliveBasic.withPackages (ps: with ps; [
     algorithm2e
     amsmath
@@ -16,6 +16,7 @@ let
     enumitem
     environ
     etoolbox
+    fontspec
     geometry
     glossaries
     glossaries-extra
@@ -43,11 +44,12 @@ let
     tools
     tracklang
     xcolor
+    xetex
     xltabular
   ]);
 in
 {
-  options.modules.latex.enable = lib.mkEnableOption "Enable latex";
+  options.modules.home.latex.enable = lib.mkEnableOption "LaTeX";
 
   config = lib.mkIf cfg.enable {
     home.packages = [

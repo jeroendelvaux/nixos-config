@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.modules.quickshell;
+  cfg = config.modules.home.quickshell;
   wallpapers = [
     {
       url = "https://w.wallhaven.cc/full/rq/wallhaven-rq3d3j.jpg";
